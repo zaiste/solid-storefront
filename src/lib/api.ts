@@ -10,3 +10,10 @@ export default function fetchAPI(path: string) {
 
   return fetch(url, { headers }).then((r) => r.json());
 }
+
+
+import { createClient } from '@urql/core';
+
+export const client = createClient({
+  url: 'https://vercel.saleor.cloud/graphql/',
+});

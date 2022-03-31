@@ -3,8 +3,9 @@ import { Links, Routes, Scripts } from "solid-start/root";
 import { Suspense } from "solid-js";
 import { ErrorBoundary } from "solid-start/error-boundary";
 import { isServer } from "solid-js/web";
-import Nav from "./components/nav";
+import { Navbar } from "./components/Navbar";
 import "./root.css";
+import { Layout } from "./components/Layout";
 
 export default function Root() {
   return (
@@ -17,12 +18,14 @@ export default function Root() {
         <link rel="manifest" href="/manifest.webmanifest" />
         <Links />
       </head>
-      <body class="bg-red-200">
-        <Nav />
+      <body class="bg-blue-200">
+        <Navbar />
         <ErrorBoundary>
-          <Suspense fallback={<div class="news-list-nav">Loading...</div>}>
-            <Routes />
-          </Suspense>
+          <Layout>
+            <Suspense fallback={<div class="news-list-nav">Loading...</div>}>
+              <Routes />
+            </Suspense>
+          </Layout>
         </ErrorBoundary>
         <Scripts />
       </body>

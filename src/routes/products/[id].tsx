@@ -2,7 +2,7 @@ import { Component, Show } from "solid-js";
 import { useRouteData } from "solid-app-router";
 import { createResource } from "solid-js";
 import { RouteDataFunc } from "solid-app-router";
-import fetchAPI from "~/lib/api";
+import { client } from "~/lib/api";
 
 interface IUser {
   error: string;
@@ -12,16 +12,44 @@ interface IUser {
   about: string;
 }
 
+
+const Query = /* GraphQL */`
+query FetchTwelveProducts {
+  products(first: 12, channel: "default-channel") {
+    edges {
+      node {
+        id
+        name
+        thumbnail {
+          url
+        }
+        category {
+          name
+        }
+      }
+    }
+  }
+}
+`
+
+const fetchAPI = async () => {
+  const { data: { products: { edges: collection }}} = await client.query(Query, {}).toPromise()
+  return collection;
+}
+
 export const routeData: RouteDataFunc = (props) => {
-  const [user] = createResource(() => `user/${props.params.id}`, fetchAPI);
-  return user;
+  const [product] = createResource(() => `products/${props.params.id}`, fetchAPI);
+  return product;
 };
 
 const User: Component = () => {
-  const user = useRouteData<() => IUser>();
+  const user = useRouteData<() => any>();
+  console.log(user())
+
   return (
     <div class="user-view">
-      <Show when={user()}>
+      something
+      {/* <Show when={user()}>
         <Show when={!user().error} fallback={<h1>User not found.</h1>}>
           <h1>User : {user().id}</h1>
           <ul class="meta">
@@ -45,7 +73,7 @@ const User: Component = () => {
             </a>
           </p>
         </Show>
-      </Show>
+      </Show> */}
     </div>
   );
 };
