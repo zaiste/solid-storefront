@@ -10,6 +10,7 @@ specifiers:
   solid-meta: ^0.27.3
   solid-start: next
   solid-start-node: next
+  solid-start-vercel: ^0.1.0-alpha.40
   tailwindcss: ^3.0.23
   typescript: ^4.6.3
   undici: ^5.0.0
@@ -27,6 +28,7 @@ devDependencies:
   solid-meta: 0.27.3_solid-js@1.3.13
   solid-start: 0.1.0-alpha.73_b2fa88e9f40c5dd9bb35dafdec15a4b4
   solid-start-node: 0.1.0-alpha.73_33b4824d4db92cefd605ee5c213c90ba
+  solid-start-vercel: 0.1.0-alpha.40_solid-start@0.1.0-alpha.73
   tailwindcss: 3.0.23_autoprefixer@10.4.4
   typescript: 4.6.3
   undici: 5.0.0
@@ -397,6 +399,22 @@ packages:
     resolution: {integrity: sha512-a5Sab1C4/icpTZVzZc5Ghpz88yQtGOyNqYXcZgOssB2uuAr+wF/MvN6bgtW32q7HHrvBki+BsZ0OuNv6EV3K9g==}
     dev: true
 
+  /@rollup/plugin-commonjs/19.0.2_rollup@2.70.1:
+    resolution: {integrity: sha512-gBjarfqlC7qs0AutpRW/hrFNm+cd2/QKxhwyFa+srbg1oX7rDsEU3l+W7LAUhsAp9mPJMAkXDhLbQaVwEaE8bA==}
+    engines: {node: '>= 8.0.0'}
+    peerDependencies:
+      rollup: ^2.38.3
+    dependencies:
+      '@rollup/pluginutils': 3.1.0_rollup@2.70.1
+      commondir: 1.0.1
+      estree-walker: 2.0.2
+      glob: 7.2.0
+      is-reference: 1.2.1
+      magic-string: 0.25.9
+      resolve: 1.22.0
+      rollup: 2.70.1
+    dev: true
+
   /@rollup/plugin-commonjs/21.0.3_rollup@2.70.1:
     resolution: {integrity: sha512-ThGfwyvcLc6cfP/MWxA5ACF+LZCvsuhUq7V5134Az1oQWsiC7lNpLT4mJI86WQunK7BYmpUiHmMk2Op6OAHs0g==}
     engines: {node: '>= 8.0.0'}
@@ -554,7 +572,7 @@ packages:
       postcss: ^8.1.0
     dependencies:
       browserslist: 4.20.2
-      caniuse-lite: 1.0.30001322
+      caniuse-lite: 1.0.30001323
       fraction.js: 4.2.0
       normalize-range: 0.1.2
       picocolors: 1.0.0
@@ -609,7 +627,7 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001322
+      caniuse-lite: 1.0.30001323
       electron-to-chromium: 1.4.103
       escalade: 3.1.1
       node-releases: 2.0.2
@@ -636,8 +654,8 @@ packages:
     engines: {node: '>= 6'}
     dev: true
 
-  /caniuse-lite/1.0.30001322:
-    resolution: {integrity: sha512-neRmrmIrCGuMnxGSoh+x7zYtQFFgnSY2jaomjU56sCkTA6JINqQrxutF459JpWcWRajvoyn95sOXq4Pqrnyjew==}
+  /caniuse-lite/1.0.30001323:
+    resolution: {integrity: sha512-e4BF2RlCVELKx8+RmklSEIVub1TWrmdhvA5kEUueummz1XyySW0DVk+3x9HyhU9MuWTa2BhqLgEuEmUwASAdCA==}
     dev: true
 
   /chalk/2.4.2:
@@ -1686,6 +1704,18 @@ packages:
       vite: 2.9.0
     dev: true
     optional: true
+
+  /solid-start-vercel/0.1.0-alpha.40_solid-start@0.1.0-alpha.73:
+    resolution: {integrity: sha512-GLgh3sqzMEi8yQX3ZJAiz9Xt5xiyjSnzFO1wEmE7nBcUfU8ORRvanIAkxAirFZpGwZ6hHjMBUo4q6v5RVzJ+yw==}
+    peerDependencies:
+      solid-start: '*'
+    dependencies:
+      '@rollup/plugin-commonjs': 19.0.2_rollup@2.70.1
+      '@rollup/plugin-json': 4.1.0_rollup@2.70.1
+      '@rollup/plugin-node-resolve': 13.1.3_rollup@2.70.1
+      rollup: 2.70.1
+      solid-start: 0.1.0-alpha.73_b2fa88e9f40c5dd9bb35dafdec15a4b4
+    dev: true
 
   /solid-start/0.1.0-alpha.73_b2fa88e9f40c5dd9bb35dafdec15a4b4:
     resolution: {integrity: sha512-43D6qHcmZUd4p0D//GS6YVBUrzQ8BC1Pi+oo5hE5iKVP1KbVVzDJAsZpz4hWPRjl1enSwZBrA/PjPD8wUryTHA==}
