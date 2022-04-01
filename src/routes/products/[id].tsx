@@ -12,69 +12,75 @@ interface IUser {
   about: string;
 }
 
+const styles = {
+  columns: 'grid grid-cols-2 gap-x-10 items-start',
+  image: {
+    aspect: 'aspect-square bg-white rounded',
+    content: 'object-center object-cover'
+  },
+  details: {
+    title: 'text-4xl font-bold tracking-tight text-gray-800',
+    category: 'text-lg mt-2 font-medium text-gray-500',
+    description: 'prose lg:prose-s'
+  }
+}
+
 
 const Query = /* GraphQL */`
-query FetchTwelveProducts {
-  products(first: 12, channel: "default-channel") {
-    edges {
-      node {
-        id
-        name
-        thumbnail {
-          url
-        }
-        category {
-          name
-        }
-      }
+query ProductByID($id: ID!) {
+  product(id: $id, channel: "default-channel") {
+    id
+    name
+    description
+    media {
+      url
+    }
+    category {
+      name
     }
   }
 }
 `
 
-const fetchAPI = async () => {
-  const { data: { products: { edges: collection }}} = await client.query(Query, {}).toPromise()
-  return collection;
+const fetchAPI = async (id: string) => {
+  const { data: { product } } = await client.query(Query, { id }).toPromise()
+  return product;
 }
 
 export const routeData: RouteDataFunc = (props) => {
-  const [product] = createResource(() => `products/${props.params.id}`, fetchAPI);
+  const [product] = createResource(() => `${props.params.id}`, fetchAPI);
   return product;
 };
 
 const User: Component = () => {
-  const user = useRouteData<() => any>();
-  console.log(user())
+  const product = useRouteData<any>();
 
   return (
-    <div class="user-view">
-      something
-      {/* <Show when={user()}>
-        <Show when={!user().error} fallback={<h1>User not found.</h1>}>
-          <h1>User : {user().id}</h1>
-          <ul class="meta">
-            <li>
-              <span class="label">Created:</span> {user().created}
-            </li>
-            <li>
-              <span class="label">Karma:</span> {user().karma}
-            </li>
-            <Show when={user().about}>
-              <li innerHTML={user().about} class="about" />{" "}
-            </Show>
-          </ul>
-          <p class="links">
-            <a href={`https://news.ycombinator.com/submitted?id=${user().id}`}>
-              submissions
-            </a>{" "}
-            |{" "}
-            <a href={`https://news.ycombinator.com/threads?id=${user().id}`}>
-              comments
-            </a>
+    <Show when={product()}>
+    <div className={styles.columns}>
+      <div className={styles.image.aspect}>
+        <img
+          src={product()?.media![0]?.url}
+          className={styles.image.content}
+        />
+      </div>
+
+      <div className="space-y-8">
+        <div>
+          <h1 className={styles.details.title}>
+            {product()?.name}
+          </h1>
+          <p className={styles.details.category}>
+            {product()?.category?.name}
           </p>
-        </Show>
-      </Show> */}
+        </div>
+
+        <article className={styles.details.description}>
+          {product()?.description}
+        </article>
+      </div>
     </div>
+    </Show>
   );
 };
 

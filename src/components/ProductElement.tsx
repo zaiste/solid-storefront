@@ -6,7 +6,7 @@ const styles = {
   title: 'block text-lg text-gray-900 truncate',
   category: 'block text-sm font-medium text-gray-500',
   image: {
-    aspect: 'aspect-h-1 aspect-w-1',
+    aspect: 'aspect-square',
     content: 'object-center object-cover'
   }
 }

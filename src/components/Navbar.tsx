@@ -14,10 +14,8 @@ export const Navbar = () => {
       <div class={styles.container}>
         <div class={styles.menu}>
           <div class={styles.menuSection}>
-            <Link href="/">
-              <a class={styles.menuLink} aria-expanded="false">
-                All Products 
-              </a>
+            <Link href="/products" class={styles.menuLink}>
+              All Products 
             </Link>
           </div>
 
