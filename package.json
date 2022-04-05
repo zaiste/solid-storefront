@@ -14,6 +14,7 @@
     "solid-js": "^1.3.13",
     "solid-meta": "^0.27.3",
     "solid-start": "next",
+    "solid-start-netlify": "next",
     "solid-start-vercel": "next",
     "tailwindcss": "^3.0.23",
     "typescript": "^4.6.3",
