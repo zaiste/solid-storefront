@@ -4,5 +4,5 @@ import vercel from "solid-start-vercel";
 import netlify from "solid-start-netlify";
 
 export default defineConfig({
-  plugins: [solid({ adapter: netlify() })]
+  plugins: [solid({ adapter: vercel() })]
 });
