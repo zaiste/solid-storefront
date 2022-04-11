@@ -1,6 +1,7 @@
 import { Link, useRouteData, RouteDataFunc } from "solid-app-router";
 import { Component, For, Show, createResource } from "solid-js";
 import { ProductElement } from "~/components/ProductElement";
+import { FetchProductCollection } from "~/graphql/query/FetchProductCollection";
 import { client } from "~/lib/api";
 
 const styles = {
@@ -12,27 +13,8 @@ const styles = {
   }
 }
 
-const Query = /* GraphQL */`
-query FetchTwelveProducts {
-  products(first: 12, channel: "default-channel") {
-    edges {
-      node {
-        id
-        name
-        thumbnail {
-          url
-        }
-        category {
-          name
-        }
-      }
-    }
-  }
-}
-`
-
 const fetchAPI = async () => {
-  const { data: { products: { edges: collection }}} = await client.query(Query, {}).toPromise()
+  const { data: { products: { edges: collection }}} = await client.query(FetchProductCollection, {}).toPromise()
   return collection;
 }
 

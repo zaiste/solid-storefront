@@ -1,13 +1,30 @@
 // @refresh reload
 import { Links, Routes, Scripts } from "solid-start/root";
-import { Suspense } from "solid-js";
+import { createResource, createSignal, Suspense } from "solid-js";
 import { ErrorBoundary } from "solid-start/error-boundary";
 import { isServer } from "solid-js/web";
 import { Navbar } from "./components/Navbar";
 import "./root.css";
 import { Layout } from "./components/Layout";
+import { client } from "~/lib/api";
+import { CreateCheckout } from "./graphql/mutation/CreateCheckout";
+import { createLocalStore } from "./lib/util";
+import { CheckoutProvider } from "./context/Checkout";
 
 export default function Root() {
+  // const [state, setState] = createLocalStore({ token: "" });
+  const [token, setToken] = createSignal("");
+
+  const [checkout] = createResource(async () => {
+    const { data } = await client.mutation(CreateCheckout, {}).toPromise()
+    const token: string = data.checkoutCreate.checkout.token;
+
+    setToken(token)
+
+    return token;
+  });
+
+
   return (
     <html lang="en">
       <head>
@@ -21,11 +38,13 @@ export default function Root() {
       <body class="bg-blue-200">
         <Navbar />
         <ErrorBoundary>
-          <Layout>
-            <Suspense fallback={<div class="news-list-nav">Loading...</div>}>
-              <Routes />
-            </Suspense>
-          </Layout>
+          <CheckoutProvider token={token}>
+            <Layout>
+              <Suspense fallback={<div class="news-list-nav">Loading...</div>}>
+                <Routes />
+              </Suspense>
+            </Layout>
+          </CheckoutProvider>
         </ErrorBoundary>
         <Scripts />
       </body>
