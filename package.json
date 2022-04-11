@@ -11,7 +11,7 @@
       "url": "https://zaiste.net"
     }
   ],
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "keywords": ["solidjs", "solidhack", "best_app", "ecommerce", "storefront"],
   "scripts": {
     "dev": "solid-start dev",
