@@ -20,6 +20,9 @@ export const Navbar = () => {
           </div>
 
           <div class={styles.menuSection}>
+            <Link href="/cart" class={styles.menuLink}>
+              Cart 
+            </Link>
           </div>
         </div>
       </div>

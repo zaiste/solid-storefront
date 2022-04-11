@@ -3,6 +3,7 @@ import { useRouteData } from "solid-app-router";
 import { createResource } from "solid-js";
 import { RouteDataFunc } from "solid-app-router";
 import { client } from "~/lib/api";
+import { AddProductVariantToCart } from "~/graphql/mutation/AddProductVariantToCart";
 
 interface IUser {
   error: string;
@@ -52,8 +53,20 @@ export const routeData: RouteDataFunc = (props) => {
   return product;
 };
 
-const User: Component = () => {
+const ProductPage: Component = () => {
   const product = useRouteData<any>();
+
+  // const selectedVariantID = queryVariant || variants![0]!.id!;
+  // const selectedVariant = variants!.find((variant) => variant?.id === selectedVariantID);
+
+  const doAddToCart = async () => {
+    const { data } = await client.mutation(AddProductVariantToCart, {
+      // checkoutToken: token, 
+      // variantId: selectedVariantID 
+    }).toPromise()
+
+    // router.push("/cart");
+  };
 
   return (
     <Show when={product()}>
@@ -78,10 +91,18 @@ const User: Component = () => {
         <article className={styles.details.description}>
           {product()?.description}
         </article>
+
+        <button
+          onClick={() => {}}
+          type="submit"
+          className="primary-button"
+        >
+          Add to cart
+        </button>
       </div>
     </div>
     </Show>
   );
 };
 
-export default User;
+export default ProductPage;
