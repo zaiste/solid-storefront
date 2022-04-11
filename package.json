@@ -1,5 +1,18 @@
 {
   "name": "solid-storefront",
+  "description": "An open-source e-commerce storefront in Solid.js with TypeScript, GraphQL, URQL & Tailwind CSS.",
+  "info": "This project aims to provide an open-source template for building e-commerce storefronts using Solid.js. Built for Headless Commerce",
+  "homepage": "https://solid-storefront.vercel.app/products",
+  "version": "0.1.0",
+  "contributors": [
+    {
+      "name": "Zaiste",
+      "email": "oh@zaiste.net",
+      "url": "https://zaiste.net"
+    }
+  ],
+  "license": "Apache 2.0",
+  "keywords": ["solidjs", "solidhack", "best_app", "ecommerce", "storefront"],
   "scripts": {
     "dev": "solid-start dev",
     "build": "solid-start build",
@@ -24,7 +37,7 @@
     "node": ">=14"
   },
   "dependencies": {
-    "@urql/core": "^2.4.3",
+    "@urql/core": "^2.4.4",
     "graphql": "^16.3.0"
   }
 }

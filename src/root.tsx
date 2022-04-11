@@ -11,10 +11,10 @@ export default function Root() {
   return (
     <html lang="en">
       <head>
-        <title>Solid - Hacker News</title>
+        <title>Solid Storefront</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="description" content="Hacker News Clone built with Solid" />
+        <meta name="description" content="Solid Storefront - E-Commmerce Solution for Solid.js" />
         <link rel="manifest" href="/manifest.webmanifest" />
         <Links />
       </head>
