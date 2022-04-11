@@ -30,14 +30,19 @@ export const CartList = ({ products }: Props) => {
                   />
                 </div>
 
-                <div class={styles.product.container}>
-                  <div>
-                    <h3 class={styles.product.name}>
-                      {product?.name}
-                    </h3>
-                    <h4>
-                      {variant?.name}
-                    </h4>
+                <div class="flex justify-between w-full items-center">
+                  <div class={styles.product.container}>
+                    <div>
+                      <h3 class={styles.product.name}>
+                        {product?.name}
+                      </h3>
+                      <h4>
+                        {variant?.name}
+                      </h4>
+                    </div>
+                  </div>
+                  <div class="text-xl font-semibold text-indigo-600">
+                    {line.quantity}
                   </div>
                 </div>
               </a>

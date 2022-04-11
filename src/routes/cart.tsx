@@ -13,13 +13,6 @@ const styles = {
 }
 
 export const routeData: RouteDataFunc = (props) => {
-  return {};
-};
-
-
-const Cart: Component = () => {
-  // const [token] = useLocalStorage('token');
-  // const [token] = useToken() as any; 
   const [token] = createSignal("04a36593-d760-4419-a7d3-b6138aaff618") 
 
   const [checkout] = createResource(token, async (tok) => {
@@ -27,14 +20,17 @@ const Cart: Component = () => {
       checkoutToken: tok
     }).toPromise()
 
-    return {};
+    return data.checkout;
   });
+  return checkout;
+};
 
-  // if (loading) return <div>Loading...</div>; 
-  // if (error) return <div>Error</div>;
-  // if (!checkout) return null;
 
-  // const products = checkout.lines || [];
+const Cart: Component = () => {
+  // const [token] = useLocalStorage('token');
+  // const [token] = useToken() as any; 
+
+  const checkout = useRouteData<() => any>();
 
   return (
     <div>
@@ -42,7 +38,9 @@ const Cart: Component = () => {
 
       <div class={styles.grid}>
         <div class="col-span-2">
-          <CartList products={[]} />
+          <Show when={checkout()}>
+            <CartList products={checkout().lines || []} />
+          </Show>
         </div>
         <div>
           <CartSummary />

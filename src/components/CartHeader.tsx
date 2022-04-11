@@ -12,7 +12,7 @@ export const CartHeader = () => {
         Your Cart
       </h1>
       <div>
-        <Link href="/">
+        <Link href="/products">
           <a className="link">
             Continue Shopping
           </a>

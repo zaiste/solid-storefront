@@ -29,6 +29,7 @@ fragment CheckoutFragment on Checkout {
       }
       name
     }
+    quantity
   }
   totalPrice {
     gross {

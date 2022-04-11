@@ -1,5 +1,5 @@
-import { Component, Show } from "solid-js";
-import { useRouteData } from "solid-app-router";
+import { Component, createSignal, Show } from "solid-js";
+import { useNavigate, useRouteData } from "solid-app-router";
 import { createResource } from "solid-js";
 import { RouteDataFunc } from "solid-app-router";
 import { client } from "~/lib/api";
@@ -39,6 +39,17 @@ query ProductByID($id: ID!) {
     category {
       name
     }
+    variants {
+      id
+      name
+      pricing {
+        price {
+          gross {
+            amount
+          }
+        }
+      }
+    }
   }
 }
 `
@@ -48,24 +59,33 @@ const fetchAPI = async (id: string) => {
   return product;
 }
 
-export const routeData: RouteDataFunc = (props) => {
-  const [product] = createResource(() => `${props.params.id}`, fetchAPI);
-  return product;
+export const routeData: RouteDataFunc = ({ params }) => {
+  const [product] = createResource(() => `${params.id}`, fetchAPI);
+
+  let selectedVariantID = "" 
+  if (!product.loading) {
+    const p = product();
+
+    selectedVariantID = params.variant || product().variants![0]!.id!;
+  }
+
+  return { product, selectedVariantID }
 };
 
 const ProductPage: Component = () => {
-  const product = useRouteData<any>();
+  const navigate = useNavigate();
+  const { product, selectedVariantID } = useRouteData<any>();
+  const token = "04a36593-d760-4419-a7d3-b6138aaff618";
 
-  // const selectedVariantID = queryVariant || variants![0]!.id!;
-  // const selectedVariant = variants!.find((variant) => variant?.id === selectedVariantID);
-
-  const doAddToCart = async () => {
+  const doAddToCart = async (variantId) => {
+    console.log(token)
+    console.log(selectedVariantID)
     const { data } = await client.mutation(AddProductVariantToCart, {
-      // checkoutToken: token, 
-      // variantId: selectedVariantID 
+      checkoutToken: token, 
+      variantId,
     }).toPromise()
 
-    // router.push("/cart");
+    navigate("/cart");
   };
 
   return (
@@ -93,7 +113,7 @@ const ProductPage: Component = () => {
         </article>
 
         <button
-          onClick={() => {}}
+          onClick={() => doAddToCart(product().variants[0].id)}
           type="submit"
           className="primary-button"
         >
