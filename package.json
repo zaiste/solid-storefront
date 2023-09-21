@@ -38,6 +38,6 @@
   },
   "dependencies": {
     "@urql/core": "^2.4.4",
-    "graphql": "^16.3.0"
+    "graphql": "^16.8.1"
   }
 }
